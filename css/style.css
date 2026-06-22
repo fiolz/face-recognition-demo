@@ -1,0 +1,311 @@
+/* ==========================================
+   1. BASE STYLES & LAYOUT
+   ========================================== */
+body {
+  margin: 0;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Inter",
+    "SF Pro Display",
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial;
+  background: #0a0a0a;
+  color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  background: #111111;
+  border: 1px solid #1f1f1f;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); /* Menggunakan shadow yang lebih smooth */
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #a1a1a1;
+  margin-bottom: 24px; /* Diberi margin-bottom agar tidak menempel di Source 2 */
+}
+
+/* ==========================================
+   2. FORMS & INPUTS
+   ========================================== */
+label {
+  display: block;
+  font-size: 13px;
+  color: #a1a1a1;
+  margin-bottom: 8px;
+}
+
+input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin-bottom: 18px;
+  background: #0d0d0d;
+  border: 1px solid #242424;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  transition: 0.15s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #404040;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* ==========================================
+   3. COMPONENTS (MODE SWITCH & UPLOAD ZONE)
+   ========================================== */
+.mode-switch {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #2a2a2a;
+  background: #0d0d0d;
+  color: #a1a1a1;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.15s ease;
+}
+
+.mode-btn.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #3a3a3a;
+}
+
+.upload-zone {
+  padding: 20px;
+  border: 1px dashed #2a2a2a;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #0d0d0d;
+  text-align: center;
+  transition: 0.18s ease;
+}
+
+.upload-zone:hover {
+  border-color: #3a3a3a;
+  background: #121212;
+}
+
+.upload-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8a8a8a;
+}
+
+.upload-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.upload-text {
+  font-size: 13px;
+  color: #a1a1a1;
+  margin-top: 10px;
+}
+
+/* ==========================================
+   4. CAMERA & PREVIEW WRAPPER
+   ========================================== */
+.preview-wrapper,
+.camera-wrap {
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+  border-radius: 12px;
+  border: 1px solid #1f1f1f;
+}
+
+.preview-wrapper {
+  display: none;
+}
+
+#previewImg,
+video {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+/* ==========================================
+   5. SCANNER EFFECTS (COMBINED)
+   ========================================== */
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+
+.scanning .scanner-overlay {
+  opacity: 1;
+}
+
+/* Efek background pulse dari Source 1 */
+.scanning::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 5px,
+    rgba(255, 255, 255, 0.02) 6px
+  );
+  animation: pulse 0.7s linear infinite;
+}
+
+/* Garis Scanner (Mendukung gaya tebal Source 1 maupun garis tipis Source 2) */
+/* Sembunyikan garis scanner secara default */
+.scanner-line {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: -20%;
+  width: 140%;
+  height: 120px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  filter: blur(18px);
+}
+
+/* Hanya tampilkan dan jalankan animasi ketika tombol Register dipencet */
+.scanning .scanner-line {
+  display: block;
+  animation: scanMove 2.2s ease-in-out infinite;
+}
+
+/* Opsional: Jika kamu memakai garis tipis glow (Source 2) di HTML tertentu, gunakan class terpisah atau biarkan ini */
+.scanning img,
+.scanning video,
+.scanning #previewImg {
+  filter: brightness(1.06) contrast(1.08);
+}
+
+@keyframes scanMove {
+  0% {
+    top: -30%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: -30%;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ==========================================
+   6. GLOBAL BUTTONS & UTILITIES
+   ========================================== */
+button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2a2a2a;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+button:hover {
+  background: #222;
+  border-color: #353535;
+}
+
+/* Hasil / Notif Output Area */
+#hasil,
+#notif {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #0d0d0d;
+  border: 1px solid #1f1f1f;
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
+  color: #d4d4d4;
+}
+
+.state-loading {
+  color: #a1a1a1;
+}
+.state-success {
+  color: #e5e5e5;
+}
+.state-error {
+  color: #b0b0b0;
+}
+
+.nav-link {
+  display: block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #8a8a8a;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+}
