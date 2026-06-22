@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css".css">
+    <title>Face Recognition</title>
+
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Face Recognition</h2>
+      <div class="subtitle">AI vision demo interface</div>
+
+      <div class="mode-switch">
+        <button
+          class="mode-btn active"
+          id="btnUpload"
+          onclick="setMode('upload')"
+        >
+          Upload Image
+        </button>
+        <button class="mode-btn" id="btnCamera" onclick="setMode('camera')">
+          Take Photo
+        </button>
+      </div>
+
+      <div id="uploadSection">
+        <div
+          class="upload-zone"
+          onclick="document.getElementById('inputFoto').click()"
+        >
+          <div class="upload-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M4 7h3l2-2h6l2 2h3v12H4V7z" />
+              <circle cx="12" cy="13" r="3" />
+            </svg>
+          </div>
+          <div class="upload-text" id="labelUpload">
+            Upload an image to start recognition
+          </div>
+
+          <div class="preview-wrapper" id="previewWrapper">
+            <div class="scanner-overlay">
+              <div class="scanner-line"></div>
+            </div>
+
+            <img id="previewImg" />
+          </div>
+        </div>
+      </div>
+
+      <div id="cameraSection" style="display: none">
+        <div class="camera-wrap" id="cameraWrap">
+          <div class="scanner-overlay">
+            <div class="scanner-line"></div>
+          </div>
+
+          <video id="video" autoplay playsinline></video>
+        </div>
+
+        <button onclick="capturePhoto()">Capture Photo</button>
+
+        <canvas id="canvas" style="display: none"></canvas>
+      </div>
+
+      <input
+        type="file"
+        id="inputFoto"
+        accept="image/*"
+        onchange="tampilkanPreview(this)"
+      />
+
+      <button onclick="handleAction()">Run Detection</button>
+
+      <div id="hasil">Waiting for input...</div>
+
+      <a href="register.html" class="nav-link">
+        New here? Register your face to get started →
+      </a>
+    </div>
+
+     <script src="js/script_index.js" defer></script>
+
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Register Face</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Register Face</h2>
+
+      <div class="subtitle">
+        Store a new face vector into the recognition database
+      </div>
+
+      <label> Full Name </label>
+
+      <input id="namaInput" type="text" placeholder="Enter a name" />
+
+      <label> Face Image </label>
+
+      <div
+        class="upload-zone"
+        onclick="document.getElementById('fotoInput').click()"
+      >
+        <div class="upload-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M4 7h3l2-2h6l2 2h3v12H4V7z" />
+
+            <circle cx="12" cy="13" r="3" />
+          </svg>
+        </div>
+
+        <div class="upload-text" id="labelUpload">Upload a face image</div>
+
+        <div class="preview-wrapper" id="previewWrapper">
+          <div class="scanner-line"></div>
+
+          <img id="previewImg" />
+        </div>
+      </div>
+
+      <input
+        type="file"
+        id="fotoInput"
+        accept="image/*"
+        onchange="tampilkanPreview(this)"
+      />
+
+      <button onclick="daftarkanKeDatabase()">Register Face</button>
+
+      <div id="notif">Waiting for input...</div>
+
+      <a href="index.html" class="nav-link"> ← Back to Recognition </a>
+    </div>
+
+    <script src="js/script_regist.js" defer></script>
+  </body>
+</html>
